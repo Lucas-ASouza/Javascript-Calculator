@@ -17,18 +17,65 @@ class CalcController{
         /*This. é a forma de criação de um atributo, faz 
         referência do objeto que está sendo instanciado.
         adicionar "_" após o "." torna o atributo privado*/
-
+        this.initButtonsEvents();
     }
 
     initialize(){
+
+        this.setDisplayDateTime();
+        /*Puxa o metódo para atualizar em tempo real assim que
+        a pagina carregar*/
         
         setInterval(() => {
 
-            this.displayDate = this.currentDate.toLocaleDateString(this.locale);
-            this.displayTime = this.currentDate.toLocaleTimeString(this.locale);
+            this.setDisplayDateTime();
+            
         }, 1000);
+        /*Repete o metódo no intervalo de 1000 milisegundos*/
+    }
+
+    addEventListenerAll(element, events, fn){
+
+        events.split(' ').forEach(event => {
+
+            element.addEventListener(event, fn, false);
+
+        });
 
     }
+    initButtonsEvents(){
+
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+        console.log(buttons)
+        buttons.forEach((btn, index)=>{
+
+            this.addEventListenerAll(btn, 'click drag', e => {
+
+                console.log(btn.className.baseVal.replace("btn-",""))
+                
+            });
+
+            this.addEventListenerAll(btn, "mouseover mouseup mousedown", e =>{
+
+                btn.style.cursor = "pointer";
+
+            })
+
+        });
+
+    }    
+    setDisplayDateTime(){
+
+        this.displayDate = this.currentDate.toLocaleDateString(this.locale,{
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+        this.displayTime = this.currentDate.toLocaleTimeString(this.locale);
+        /*Metódo para atualizar em tempo real a data e a hora. */
+
+    }
+    
  
     get displayCalc(){
 
