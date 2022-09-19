@@ -60,6 +60,7 @@ class CalcController{
                 case '*':
                 case '%':
                     this.addOperation(e.key);
+                    break;
                 case 'Enter':
                 case '=':    
                     this.calc();
