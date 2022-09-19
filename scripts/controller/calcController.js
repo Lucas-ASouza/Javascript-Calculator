@@ -23,6 +23,9 @@ class CalcController{
 
     initialize(){
 
+        this.setLastNumberToDisplay();
+        //Puxa o metódo de limpar o display da calculadora//
+
         this.setDisplayDateTime();
         /*Puxa o metódo para atualizar em tempo real assim que
         a pagina carregar*/
@@ -49,10 +52,14 @@ class CalcController{
 
         this._operation = [];
 
+        this.setLastNumberToDisplay();
+
     }
     clearEntry(){
 
         this._operation.pop();
+
+        this.setLastNumberToDisplay();
 
     }
 
@@ -95,6 +102,7 @@ class CalcController{
         if (last == "%"){
 
             result /= 100;
+
             this._operation = [result];
 
         }else{
@@ -119,6 +127,8 @@ class CalcController{
             }
 
         }
+        if(!lastNumber) lastNumber = 0;
+
         this.displayCalc = lastNumber;
 
     }
