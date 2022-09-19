@@ -21,6 +21,7 @@ class CalcController{
         referência do objeto que está sendo instanciado.
         adicionar "_" após o "." torna o atributo privado*/
         this.initButtonsEvents();
+        this.initKeyboard();
     }
 
     initialize(){
@@ -40,6 +41,51 @@ class CalcController{
         /*Repete o metódo no intervalo de 1000 milisegundos*/
     }
 
+
+    initKeyboard(){
+
+        document.addEventListener('keyup', e=>{
+
+            switch (e.key){
+
+                case 'Escape':
+                    this.clearAll();
+                   break;
+                case 'Backspace':
+                    this.clearEntry();
+                    break;
+                case '+':
+                case '-':
+                case '/':
+                case '*':
+                case '%':
+                    this.addOperation(e.key);
+                case 'Enter':
+                case '=':    
+                    this.calc();
+                    break;
+                case '.':
+                case ',':
+                    this.addDot('.');
+                    break;
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':    
+                case '5':    
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.addOperation(parseInt(e.key));
+                    break;                   
+                                         
+            }
+
+        });
+
+    }
     addEventListenerAll(element, events, fn){
 
         events.split(' ').forEach(event => {
@@ -225,7 +271,7 @@ class CalcController{
 
         if (typeof lastOperation ==='string' && lastOperation.split('').indexOf('.') > -1) return;
         //verficar se é uma string que está vindo E se também há a existência de um ponto
-        
+
         
         if (this.isOperator(lastOperation) || !lastOperation){
 
